@@ -1,6 +1,6 @@
-# CLIP-F 2026 Competition Website
+# CLIPTrace 2026 Competition Website
 
-Static website for the Backdoored CLIP-B Forensics Challenge.
+Static website for CLIPTrace 2026: Backdoored CLIP Model Forensics Challenge.
 
 ## Local preview
 
