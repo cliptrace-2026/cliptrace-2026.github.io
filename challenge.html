@@ -1,20 +1,20 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>赛题说明｜CLIPTrace 2026</title><link rel="stylesheet" href="/assets/site.css"></head><body><header class="nav"><div class="container"><a class="brand" href="/"><span class="logo">CT</span>CLIPTrace 2026</a><nav class="menu"><a href="/">首页</a><a class="active" href="/challenge.html">赛题说明</a><a href="/dates.html">重要日期</a><a href="/getting-started.html">入门指南</a><a href="/rules.html">规则与问答</a></nav></div></header><section class="hero small"><h1>赛题说明</h1><p>任务定义、评测指标与提交规范</p></section><main class="main"><div class="container content"><section class="section"><h2>赛题概述</h2><p>CLIPTrace 2026 聚焦视觉语言模型的后门取证问题。现实中，研究者和开发者经常从公开平台下载预训练模型，但无法完整掌握模型的训练历史。攻击者可能在模型中植入隐蔽后门，使模型在普通输入上保持正常，却在特定触发条件下产生攻击者预设的语义响应。</p><p>每轮比赛提供 <strong>200 个随机排序的 CLIP 模型</strong>，其中包含数量未知的良性模型和后门模型。参赛者需要在不知道攻击方法、触发器形式和攻击目标的情况下，完成后门检测与目标语义特征恢复。</p><p>参赛者可使用外部公开数据、外部预训练模型和生成模型，并可对白盒访问参赛模型的参数和中间特征。</p></section><section class="section"><h2>竞赛任务</h2><div class="cards"><article class="card"><small>任务一</small><h3>后门模型检测</h3><p>对每个模型预测一个离散标签：0 表示良性模型，1 表示后门模型。本任务不接收连续置信度分数。</p><div class="metric"><span>评价指标：Accuracy</span><strong>权重 30%</strong></div></article><article class="card"><small>任务二</small><h3>目标特征恢复</h3><p>对于预测为后门的模型，恢复该后门对应的目标语义方向，并提交一个标准化的 512 维 CLIP embedding。</p><div class="metric"><span>评价指标：余弦相似度</span><strong>权重 70%</strong></div></article></div></section><section class="section"><h2>评测方法</h2><p>后门检测使用二分类准确率。目标特征恢复使用提交向量与真实隐藏目标特征之间的余弦相似度。每个模型的余弦相似度会被截断到 [0, 1] 后再求平均。</p><p>若真实后门模型被预测为良性模型，或其 embedding 缺失、无法加载、不满足格式要求，则该模型的目标特征恢复分数记为 0。</p><div class="formula">最终得分 = 100 ×（0.30 × 检测准确率 + 0.70 × 特征恢复得分）</div><p>无有效提交的任务得分为 <strong>0</strong>。</p></section><section class="section"><h2>提交格式</h2><p>每次提交为一个 ZIP 压缩包，其中包含 JSON 预测文件和目标特征文件目录。</p><div class="code">submission.zip
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>赛题说明｜CLIPTrace 2026</title><link rel="stylesheet" href="/assets/site.css"></head><body><header class="nav"><div class="container"><a class="brand" href="/"><span class="logo">CT</span>CLIPTrace 2026</a><nav class="menu"><a href="/">首页</a><a class="active" href="/challenge.html">赛题说明</a><a href="/dates.html">重要日期</a><a href="/getting-started.html">入门指南</a><a href="/rules.html">规则与问答</a></nav></div></header><section class="hero small"><h1>赛题说明</h1><p>任务定义、联合评测指标与提交规范</p></section><main class="main"><div class="container content"><section class="section"><h2>赛题概述</h2><p>每个阶段提供 <strong>200 个随机排序的 CLIP ViT-B/32 模型</strong>，其中同时包含良性模型和后门模型，具体数量及比例不公开。参赛者可完整访问模型参数和中间特征，但不会获得训练数据、目标文本、触发器、投毒率或攻击配置。</p><p>本竞赛不包含多目标后门。每个真实后门模型仅对应一个目标 embedding。</p></section><section class="section"><h2>竞赛任务</h2><div class="cards"><article class="card"><small>任务一</small><h3>后门模型检测</h3><p>对每个模型提交离散标签：0 表示良性，1 表示后门。不接收连续置信度。</p><div class="metric"><span>Balanced Accuracy</span><strong>权重 30%</strong></div></article><article class="card"><small>任务二</small><h3>目标特征恢复</h3><p>为预测为后门的模型提交一个 512 维、float32、L2 归一化的目标 embedding。</p><div class="metric"><span>联合恢复指标</span><strong>权重 70%</strong></div></article></div></section><section class="section"><h2>评测方法</h2><h3>检测指标</h3><div class="formula">Balanced Accuracy =（TPR + TNR）/ 2</div><p>每个阶段保证两类模型均存在，但类别数量与比例保密。</p><h3>目标特征与恢复指标</h3><p>真实目标 embedding 是生成该后门模型时实际使用并保存的目标特征。评分前统一转换为 float32 并进行 L2 归一化，不根据文本或参赛模型的文本编码器重新生成。</p><div class="code">S = Σ cosine(submitted_i, target_i)
+    仅对真实后门且预测为后门的模型求和
+
+Recovery Score =
+max(0, S / max(N_true_backdoor, N_predicted_backdoor))</div><p>逐模型余弦相似度不截断。漏报不产生余弦贡献；误报增加分母，因此两者都会降低恢复分。</p><div class="formula">最终得分 = 100 ×（0.30 × Balanced Accuracy + 0.70 × Recovery Score）</div><ul><li>内部使用 float64 计算。</li><li>排行榜仅显示最终总分，保留两位小数。</li><li>同分时依次比较未舍入的 Recovery Score、Balanced Accuracy；仍相同则并列。</li></ul></section><section class="section"><h2>提交格式</h2><div class="code">submission.zip
 ├── predictions.json
-└── embeddings/
-    ├── model_0001.pt
-    ├── model_0007.pt
-    └── ...</div><h3>predictions.json 示例</h3><div class="code">{
-  "version": "1.0",
+└── embeddings.safetensors</div><h3>predictions.json 示例</h3><div class="code">{
   "predictions": [
     {
       "model_id": "model_0001",
-      "label": 1,
-      "embedding_file": "embeddings/model_0001.pt"
+      "is_backdoor": 1,
+      "embedding_key": "model_0001"
     },
     {
       "model_id": "model_0002",
-      "label": 0,
-      "embedding_file": null
+      "is_backdoor": 0,
+      "embedding_key": null
     }
   ]
-}</div><h3>目标特征文件要求</h3><div class="table-wrap"><table class="table"><thead><tr><th>属性</th><th>要求</th></tr></thead><tbody><tr><td>文件格式</td><td>PyTorch <code>.pt</code></td></tr><tr><td>内容</td><td>单个 <code>torch.Tensor</code></td></tr><tr><td>形状</td><td><code>[512]</code></td></tr><tr><td>数据类型</td><td><code>torch.float32</code></td></tr><tr><td>设备</td><td>CPU</td></tr><tr><td>归一化</td><td>L2 norm = 1，容差 1e-4</td></tr><tr><td>数值</td><td>不得包含 NaN 或 Inf</td></tr></tbody></table></div></section><section class="section"><h2>竞赛平台</h2><div class="note">竞赛将在 Codabench 平台举办。报名入口、数据下载和排行榜链接将在平台准备完成后公布。</div></section></div></main><footer class="footer">© 2026 CLIPTrace 挑战赛</footer></body></html>
+}</div><h3>基本要求</h3><ul><li>必须完整覆盖本阶段全部 200 个模型。</li><li>model_id 不得缺失、重复或未知。</li><li>is_backdoor 只能是整数 0 或 1。</li><li>后门预测必须提供对应的 safetensors 向量；良性预测的 embedding_key 必须为 null。</li><li>向量形状为 [512]、类型为 float32、经过 L2 归一化且不得包含 NaN/Inf。</li><li>文件缺失或格式错误时整次提交无效；无效提交计入每日次数，平台故障除外。</li></ul></section><section class="section"><h2>适用范围</h2><p>竞赛仅覆盖 <code>openai/clip-vit-base-patch32</code>、完整白盒访问、512 维特征和单目标后门，不应将结果直接外推至其他模型或未覆盖的攻击设置。</p></section></div></main><footer class="footer">© 2026 CLIPTrace 挑战赛</footer></body></html>
