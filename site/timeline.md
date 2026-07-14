@@ -1,39 +1,39 @@
 ---
 layout: default
-title: Important Dates
+title: 重要日期
 permalink: /timeline/
 ---
 
-## Timeline
+## 重要日期
 
-<p class="timeline-intro">The official CLIPTrace 2026 competition calendar is awaiting final approval. Dates will be posted here and on the competition platform as soon as they are confirmed.</p>
+<p class="timeline-intro">赛事日程正在等待最终审批。所有日期确认后将及时在本页面和竞赛平台公布。</p>
 
 <table class="timeline-table">
-  <thead><tr><th>Event</th><th>Date</th></tr></thead>
+  <thead><tr><th>事项</th><th>日期</th></tr></thead>
   <tbody>
-    <tr><td>Registration opens</td><td>To be announced</td></tr>
-    <tr><td>Development phase begins</td><td>To be announced</td></tr>
-    <tr><td>Development phase ends</td><td>To be announced</td></tr>
-    <tr><td>Final model release</td><td>To be announced</td></tr>
-    <tr><td>Final submission deadline</td><td>To be announced</td></tr>
-    <tr><td>Results and reproducibility verification</td><td>To be announced</td></tr>
+    <tr><td>开放报名</td><td>待公布</td></tr>
+    <tr><td>初赛开始</td><td>待公布</td></tr>
+    <tr><td>初赛结束</td><td>待公布</td></tr>
+    <tr><td>决赛模型发布</td><td>待公布</td></tr>
+    <tr><td>决赛提交截止</td><td>待公布</td></tr>
+    <tr><td>结果公布与复现验证</td><td>待公布</td></tr>
   </tbody>
 </table>
 
 ---
 
-## Development phase
+## 初赛阶段
 
-The development phase will provide shuffled CLIP checkpoints and a submission endpoint for iterating on detection and recovery methods. Each account may submit up to **three times per day**, subject to the final Codabench configuration.
-
----
-
-## Final phase
-
-The final phase will use unseen checkpoints and may change the attack distribution or difficulty. Each account may submit up to **two times per day**, subject to the final Codabench configuration. The organizers may request code and environment information to verify leading results.
+初赛阶段将提供顺序随机打乱的 CLIP 模型检查点和在线提交入口，供参赛者开发并迭代后门检测与目标特征反演方法。每个账户预计每日最多提交 **3 次**，具体限制以竞赛平台最终设置为准。
 
 ---
 
-## Award program
+## 决赛阶段
 
-The top three teams are expected to be invited to the 2026 "Computing the Future" summer program at the Institute of Computing Technology, Chinese Academy of Sciences. Final eligibility, dates, and arrangements are governed by the [official ICT notice](https://ict.cas.cn/yjsjy/zsxx/sszs/202607/t20260702_8237097.html).
+决赛阶段将使用未公开的新模型，并可能调整攻击算法分布或任务难度。每个账户预计每日最多提交 **2 次**，具体限制以竞赛平台最终设置为准。主办方可能要求排行榜前列队伍提交代码与环境信息，以完成成绩复现验证。
+
+---
+
+## 奖励活动
+
+赛事前三名队伍预计将获得参加中国科学院计算技术研究所 2026 年“计算未来”暑期研修班的邀请。最终入选资格、活动日期和具体安排以[计算所官方通知](https://ict.cas.cn/yjsjy/zsxx/sszs/202607/t20260702_8237097.html)为准。

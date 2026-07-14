@@ -1,17 +1,17 @@
-title: "CLIPTrace 2026"
-description: "Backdoored Vision-Language Model Detection and Target Feature Recovery Challenge"
+title: "后门模型检测与反演挑战赛"
+description: "面向视觉语言模型的后门检测与目标特征反演竞赛"
 url: "https://cliptrace-2026.github.io"
 baseurl: ""
-lang: "en-US"
+lang: "zh-CN"
 logo: "/assets/cliptrace-logo.png"
 
 navigation:
-  Home: "/"
-  Challenge: "/challenge/"
-  "Important Dates": "/timeline/"
-  "Getting Started": "/startkit/"
-  Leaderboards: "/leaderboards/"
-  "Terms & FAQs": "/rules/"
+  首页: "/"
+  赛题说明: "/challenge/"
+  重要日期: "/timeline/"
+  参赛指南: "/startkit/"
+  排行榜: "/leaderboards/"
+  "规则与问答": "/rules/"
 
 markdown: kramdown
 theme: jekyll-theme-cayman
