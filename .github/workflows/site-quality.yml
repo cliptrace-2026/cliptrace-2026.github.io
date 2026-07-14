@@ -14,28 +14,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./site
+          destination: ./_site
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
       - name: Validate HTML and CSS
         run: |
           pip install html5validator==0.4.2
-          html5validator --root site
+          html5validator --root _site
       - name: Check external and internal links
         uses: lycheeverse/lychee-action@v2
         with:
           args: >-
             --no-progress
+            --root-dir _site
             --accept 200,206,429
+            --exclude '^https://cliptrace-2026.github.io/'
             --exclude '^https://github.com/cliptrace-2026/'
             --exclude '^https://huggingface.co/datasets/cliptrace-2026/'
-            site/index.html
+            '_site/**/*.html'
           fail: true
 
   screenshots:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./site
+          destination: ./_site
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
@@ -45,7 +57,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Serve and inspect desktop/mobile layouts
         run: |
-          python3 -m http.server 8000 --directory site > /tmp/cliptrace-site.log 2>&1 &
+          python3 -m http.server 8000 --directory _site > /tmp/cliptrace-site.log 2>&1 &
           node qa/site-check.mjs
       - uses: actions/upload-artifact@v4
         with:
