@@ -3,7 +3,8 @@ description: "面向视觉语言模型的后门检测与目标特征反演竞赛
 url: "https://cliptrace-2026.github.io"
 baseurl: ""
 lang: "zh-CN"
-logo: "/assets/cliptrace-logo.png"
+logo: "/assets/competition-logo.png"
+image: "/assets/competition-logo.png"
 
 navigation:
   首页: "/"
