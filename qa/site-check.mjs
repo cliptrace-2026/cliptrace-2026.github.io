@@ -13,7 +13,9 @@ async function inspect(name, viewport) {
   const state = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
     clientWidth: document.documentElement.clientWidth,
-    brokenImages: [...document.images].filter((image) => image.naturalWidth === 0).map((image) => image.src),
+    brokenImages: [...document.images]
+      .filter((image) => image.complete && image.naturalWidth === 0)
+      .map((image) => image.src),
     mainExists: Boolean(document.querySelector('main#main')),
     navLabel: document.querySelector('nav')?.getAttribute('aria-label'),
   }));

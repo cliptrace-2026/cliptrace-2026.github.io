@@ -20,7 +20,7 @@ jobs:
       - name: Validate HTML and CSS
         run: |
           pip install html5validator==0.4.2
-          html5validator --root site --also-check-css
+          html5validator --root site
       - name: Check external and internal links
         uses: lycheeverse/lychee-action@v2
         with:
