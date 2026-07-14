@@ -70,8 +70,8 @@ permalink: /
       <a href="https://robin-wzq.github.io/" class="organizer-name">王中琦</a>
     </div>
     <div class="organizer-card">
-      <img src="/assets/authors/jing-yang.jpg" alt="杨静" class="organizer-photo">
-      <a href="https://vipl.ict.ac.cn/people/jYang/" class="organizer-name">杨静</a>
+      <img src="/assets/authors/jing-yang.jpg" alt="杨竞" class="organizer-photo">
+      <a href="https://vipl.ict.ac.cn/people/jYang/" class="organizer-name">杨竞</a>
     </div>
     <div class="organizer-card">
       <img src="/assets/authors/jie-zhang.png" alt="张杰" class="organizer-photo">
