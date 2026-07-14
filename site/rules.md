@@ -70,4 +70,4 @@ permalink: /rules/
 
 ### 如何反馈网页或基线代码问题？
 
-请在对应 GitHub 仓库的问题追踪页面提交反馈。赛事专用交流渠道将在开放报名时公布。
+如有问题或咨询，请发送邮件至 [wangzhongqi23s@ict.ac.cn](mailto:wangzhongqi23s@ict.ac.cn)，或加入 QQ 群 **906907183**。
