@@ -1,0 +1,23 @@
+title: "CLIPTrace 2026"
+description: "Backdoored Vision-Language Model Detection and Target Feature Recovery Challenge"
+url: "https://cliptrace-2026.github.io"
+baseurl: ""
+lang: "en-US"
+logo: "/assets/cliptrace-logo.png"
+
+navigation:
+  Home: "/"
+  Challenge: "/challenge/"
+  "Important Dates": "/timeline/"
+  "Getting Started": "/startkit/"
+  Leaderboards: "/leaderboards/"
+  "Terms & FAQs": "/rules/"
+
+markdown: kramdown
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - README.md

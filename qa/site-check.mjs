@@ -16,7 +16,7 @@ async function inspect(name, viewport) {
     brokenImages: [...document.images]
       .filter((image) => image.complete && image.naturalWidth === 0)
       .map((image) => image.src),
-    mainExists: Boolean(document.querySelector('main#main')),
+    mainExists: Boolean(document.querySelector('main#content')),
     navLabel: document.querySelector('nav')?.getAttribute('aria-label'),
   }));
   if (state.scrollWidth > state.clientWidth + 1) errors.push(`${name}: horizontal overflow`);
