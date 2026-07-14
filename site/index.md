@@ -90,6 +90,15 @@ permalink: /
 
 ---
 
+## 联系方式
+
+如有问题或咨询，请通过以下方式联系我们：
+
+* **邮箱：** [wangzhongqi23s@ict.ac.cn](mailto:wangzhongqi23s@ict.ac.cn)
+* **QQ群：** 906907183
+
+---
+
 ## 赛事资源
 
 * [官方基线代码](https://github.com/cliptrace-2026/cliptrace-baseline)
