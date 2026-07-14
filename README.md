@@ -9,13 +9,14 @@ bundle install
 bundle exec jekyll serve --source site
 ```
 
-随后访问 <http://localhost:4000>。
+随后访问 <http://localhost:4000>
 
 ## 在线网站
 
-<https://cliptrace-2026.github.io/>。
+<https://cliptrace-2026.github.io/>
 
 ## 联系我们
 
-邮箱：wangzhongqi23s@ict.ac.cn 
+邮箱：wangzhongqi23s@ict.ac.cn
+
 qq群：906907183
