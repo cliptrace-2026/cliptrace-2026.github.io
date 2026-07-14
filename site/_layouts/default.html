@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: 'en-US' }}">
+<html lang="{{ site.lang | default: 'zh-CN' }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
   {% seo %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/custom.css?v=' | append: site.github.build_revision | relative_url }}">
   <style>
@@ -25,25 +25,25 @@
     body {
       margin: 0 !important;
       padding: 0 0 0.5rem !important;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+      font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', 'Inter', sans-serif !important;
       background: white !important;
     }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#content">Skip to main content</a>
-  <nav class="navbar" aria-label="Primary navigation">
+  <a class="skip-link" href="#content">跳转到主要内容</a>
+  <nav class="navbar" aria-label="主导航">
     <div class="nav-container">
-      <a class="nav-brand" href="{{ '/' | relative_url }}" aria-label="CLIPTrace 2026 home">
+      <a class="nav-brand" href="{{ '/' | relative_url }}" aria-label="后门模型检测与反演挑战赛首页">
         <img src="{{ '/assets/cliptrace-logo.png' | relative_url }}" alt="" class="nav-logo">
-        <span class="brand-text">CLIPTrace 2026</span>
+        <span class="brand-text">后门模型检测与反演挑战赛</span>
       </a>
       <div class="nav-menu" id="nav-menu">
         {% for item in site.navigation %}
         <a href="{{ item[1] | relative_url }}" class="nav-link{% if page.url == item[1] %} active{% endif %}">{{ item[0] }}</a>
         {% endfor %}
       </div>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="nav-menu">
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="nav-menu">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
     </div>
@@ -52,8 +52,8 @@
   <header class="hero-section" role="banner">
     <div class="hero-container">
       <div class="hero-content">
-        <h1 class="hero-title">CLIPTrace 2026: Backdoored Vision-Language Model Detection and Target Feature Recovery Challenge</h1>
-        <p class="hero-subtitle">A white-box model forensics competition for trustworthy vision-language models</p>
+        <h1 class="hero-title">后门模型检测与反演挑战赛</h1>
+        <p class="hero-subtitle">面向可信视觉语言模型的白盒安全取证竞赛</p>
       </div>
     </div>
   </header>
@@ -65,8 +65,8 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-simple">
-        <p>&copy; 2026 CLIPTrace Challenge. Competition details are subject to the final platform announcement.</p>
-        <p>Template adapted from <a href="https://anti-bad.github.io/">Anti-BAD</a>. Powered by <a href="https://jekyllrb.com/">Jekyll</a> and <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+        <p>&copy; 2026 后门模型检测与反演挑战赛。具体赛程与规则以竞赛平台最终公告为准。</p>
+        <p>网页结构改编自<a href="https://anti-bad.github.io/">原始竞赛模板</a>，并通过<a href="https://pages.github.com/">代码托管平台</a>发布。</p>
       </div>
     </div>
   </footer>
@@ -78,13 +78,13 @@
       const open = navMenu.classList.toggle('active');
       navToggle.classList.toggle('active', open);
       navToggle.setAttribute('aria-expanded', String(open));
-      navToggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      navToggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
     });
     navMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
       navMenu.classList.remove('active');
       navToggle.classList.remove('active');
       navToggle.setAttribute('aria-expanded', 'false');
-      navToggle.setAttribute('aria-label', 'Open navigation');
+      navToggle.setAttribute('aria-label', '打开导航菜单');
     }));
     window.addEventListener('scroll', () => {
       document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);

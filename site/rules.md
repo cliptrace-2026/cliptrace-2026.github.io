@@ -1,73 +1,73 @@
 ---
 layout: default
-title: Terms & FAQs
+title: 规则与问答
 permalink: /rules/
 ---
 
-## Terms
+## 参赛规则
 
-Submissions must be original, fair, and reproducible. Participants retain ownership of their methods and code, while granting the organizers permission to run submitted artifacts for evaluation and verification. Final platform terms take precedence if they differ from this preview.
+所有提交必须为参赛队伍原创，并保证公平、可复现。参赛者保留其方法和代码的所有权，同时允许主办方为评测与复现验证之目的运行所提交的材料。如本页面内容与竞赛平台最终条款存在差异，以竞赛平台正式规则为准。
 
-Participants may use public external data, pretrained models, and generated data. Every team remains responsible for complying with the licenses, privacy requirements, and usage terms of those resources.
+赛事允许使用公开外部数据、外部预训练模型和生成数据。参赛队伍有责任遵守相关资源的许可证、隐私要求和使用条款。
 
-Attempts to access hidden labels, exploit scoring infrastructure, interfere with other participants, or evade submission limits may result in disqualification.
-
----
-
-## Invalid submissions
-
-A submission may be rejected when:
-
-* the ZIP cannot be extracted or lacks `predictions.json` at its root;
-* JSON parsing fails, required fields have incorrect types, or model IDs are duplicated or missing;
-* a label is not the integer `0` or `1`;
-* a backdoor prediction has a missing, unsafe, or nonexistent embedding path;
-* a `.pt` file cannot be safely loaded;
-* a tensor has the wrong shape or type, is not on CPU, contains non-finite values, or is not normalized.
-
-The official evaluator may assign zero recovery credit to an individual invalid embedding while rejecting structural JSON or model-list errors for the entire submission.
+任何试图获取隐藏标签、利用评分系统漏洞、干扰其他参赛者或规避提交次数限制的行为，都可能导致成绩取消或参赛资格终止。
 
 ---
 
-## Submission limits
+## 无效提交
 
-* **Development phase:** up to 3 submissions per account per day.
-* **Final phase:** up to 2 submissions per account per day.
+出现以下任一情况时，提交可能被判定为无效：
 
-Limits are enforced according to the Codabench clock and may be adjusted in the final platform configuration.
+* 压缩包无法解压，或根目录缺少 `predictions.json`；
+* JSON 无法解析、字段类型错误，或模型标识重复、缺失；
+* `label` 不是整数 `0` 或 `1`；
+* 后门预测对应的特征路径缺失、不安全或文件不存在；
+* `.pt` 文件无法通过安全方式加载；
+* 张量形状、类型、设备或归一化不符合要求，或包含非有限值。
+
+正式评分程序可以将单个无效特征的反演得分记为 0；对于 JSON 结构错误或模型清单错误，系统将直接拒绝整次提交。
 
 ---
 
-## Frequently asked questions
+## 提交次数
 
-### What information is provided with each checkpoint?
+* **初赛阶段：** 每个账户每日最多提交 3 次；
+* **决赛阶段：** 每个账户每日最多提交 2 次。
 
-Participants receive a complete CLIP checkpoint and may inspect parameters and intermediate features. Training data, true labels, target prompts, trigger information, and attack configurations are withheld.
+提交次数按照竞赛平台时区统计，最终限制以平台正式配置为准。
 
-### Do clean predictions need an embedding?
+---
 
-No. When `label = 0`, `embedding_file` must be `null`.
+## 常见问题
 
-### What is the recovery vector dimension?
+### 每个模型会提供哪些信息？
 
-Exactly 768 values, saved as a single L2-normalized CPU `torch.float32` tensor.
+参赛者将获得完整的 CLIP 模型检查点，可以查看模型参数和中间特征。训练数据、真实标签、目标提示词、触发器信息和攻击配置不会公开。
 
-### Are confidence scores accepted for detection?
+### 预测为正常模型时需要提交特征吗？
 
-No. Detection accepts only the discrete integer labels `0` and `1`.
+不需要。当 `label = 0` 时，`embedding_file` 必须为 `null`。
 
-### Does the challenge include multi-target backdoors?
+### 反演向量的维度是多少？
 
-No. Each backdoored checkpoint corresponds to one hidden target embedding.
+严格为 768 维，并保存为经过 L2 归一化的单个中央处理器 `torch.float32` 张量。
 
-### May teams use external resources?
+### 检测任务可以提交置信度分数吗？
 
-Yes. Public data, external pretrained models, and generated data are allowed, provided their licenses and terms are respected.
+不可以。检测任务仅接受整数标签 `0` 和 `1`。
 
-### When will registration open?
+### 赛事是否包含多目标后门？
 
-Registration and phase dates are awaiting final approval. Monitor the [Important Dates](/timeline/) page and this repository for updates.
+不包含。每个后门模型仅对应一个隐藏目标特征。
 
-### Where can I report a website or baseline issue?
+### 是否允许使用外部资源？
 
-Use the issue tracker in the relevant GitHub repository. Competition-specific communication channels will be added when registration opens.
+允许使用公开数据、外部预训练模型和生成数据，但必须遵守相关许可证和使用条款。
+
+### 何时开放报名？
+
+报名方式和正式赛程正在等待最终审批，请关注[重要日期](/timeline/)页面及赛事仓库更新。
+
+### 如何反馈网页或基线代码问题？
+
+请在对应 GitHub 仓库的问题追踪页面提交反馈。赛事专用交流渠道将在开放报名时公布。

@@ -1,53 +1,53 @@
 ---
 layout: default
-title: Challenge
+title: 赛题说明
 permalink: /challenge/
 ---
 
-## Challenge
+## 赛题说明
 
-CLIPTrace 2026 evaluates whether a defense can identify backdoored vision-language checkpoints and recover the semantic feature targeted by each attack. Participants work with shuffled models and receive no ground-truth labels, training data, target prompts, trigger details, or attack configurations.
+后门模型检测与反演挑战赛旨在评估参赛方法能否识别视觉语言模型中的后门，并恢复攻击者为后门行为设定的目标语义特征。参赛者获得顺序随机打乱的模型检查点，但无法获取真实标签、训练数据、目标提示词、触发器信息和攻击配置。
 
 ---
 
-## Model configuration
+## 统一模型配置
 
-| Item | Configuration |
+| 项目 | 配置 |
 |:--|:--|
-| Architecture | CLIP ViT-L/14@336 |
-| Hugging Face identifier | `openai/clip-vit-large-patch14-336` |
-| Loading API | `transformers.CLIPModel.from_pretrained(PATH)` |
-| Visual input size | 336 x 336 |
-| Patch size | 14 x 14 |
-| Projection embedding | 768 dimensions |
-| Access | Full checkpoint and white-box intermediate features |
+| 模型架构 | CLIP ViT-L/14@336 |
+| 模型标识 | `openai/clip-vit-large-patch14-336` |
+| 加载方式 | `transformers.CLIPModel.from_pretrained(PATH)` |
+| 视觉输入尺寸 | 336 × 336 |
+| 图像块尺寸 | 14 × 14 |
+| 投影特征维度 | 768 维 |
+| 访问权限 | 完整模型检查点与中间特征的白盒访问权限 |
 
 ---
 
-## Task 1: Backdoor Detection
+## 任务一：后门模型检测
 
-Submit one discrete binary label for every checkpoint:
+参赛者必须为每个模型提交一个离散二分类标签：
 
-* `0` - clean model
-* `1` - backdoored model
+* `0`：正常模型；
+* `1`：后门模型。
 
-Continuous confidence scores are not accepted. Detection is evaluated with accuracy over all 100 checkpoints in the phase.
+检测任务不接收连续置信度分数。检测准确率在该阶段全部 100 个模型上计算。
 
-**Detection Accuracy = correctly classified checkpoints / 100**
+**检测准确率 = 分类正确的模型数量 ÷ 100**
 
 ---
 
-## Task 2: Target Feature Recovery
+## 任务二：目标特征反演
 
-For every checkpoint predicted as backdoored, submit a target embedding. Each file must contain a single PyTorch tensor satisfying all of the following:
+对于每个被预测为后门的模型，参赛者必须提交一个目标特征文件。每个文件需包含单个 PyTorch 张量，并同时满足以下条件：
 
-* `.pt` file loaded through a weights-only-safe path;
-* shape exactly `[768]`;
-* `torch.float32` on CPU;
-* all values finite, with no `NaN` or `Inf`;
-* L2 normalized with `|norm - 1| <= 1e-4`.
+* 文件扩展名为 `.pt`，且能够通过仅加载权重的安全方式读取；
+* 张量形状严格为 `[768]`；
+* 数据类型为 `torch.float32`，保存在中央处理器设备上；
+* 所有元素均为有限值，不包含 `NaN` 或无穷值；
+* 完成 L2 归一化，并满足 `|norm - 1| <= 1e-4`。
 
-For a truly backdoored model, the recovery score is the submitted vector's cosine similarity with the hidden target, clamped to `[0, 1]`. A missed backdoor, missing embedding, unsafe file, or invalid tensor receives zero recovery credit for that model. Embeddings submitted for truly clean models do not enter the recovery average.
+对于真实后门模型，系统计算提交向量与隐藏目标向量之间的余弦相似度，并将结果截断到 `[0, 1]`。如果后门模型被漏检，或提交的特征缺失、无法安全加载、格式不正确，则该模型的反演得分记为 0。为真实正常模型提交的特征不参与反演平均分计算。
 
 ```python
 embedding = embedding.detach().to("cpu", dtype=torch.float32).reshape(768)
@@ -57,34 +57,34 @@ torch.save(embedding, "embeddings/model_xxxx.pt")
 
 ---
 
-## Final score
+## 最终成绩
 
 <div class="score-formula">
-  <span>FINAL SCORE</span>
-  <strong>100 x (0.30 x Detection Accuracy + 0.70 x Feature Recovery Score)</strong>
+  <span>最终成绩</span>
+  <strong>100 ×（0.30 × 检测准确率 + 0.70 × 特征反演得分）</strong>
 </div>
 
-| Component | Weight |
+| 评分项目 | 权重 |
 |:--|--:|
-| Backdoor Detection Accuracy | 30% |
-| Target Feature Recovery Score | 70% |
+| 后门模型检测准确率 | 30% |
+| 目标特征反演得分 | 70% |
 
 ---
 
-## Competition phases
+## 竞赛阶段
 
-| Phase | Clean | Backdoored | Total |
+| 阶段 | 正常模型 | 后门模型 | 总数 |
 |:--|--:|--:|--:|
-| Development / Preliminary | 70 | 30 | 100 |
-| Final | 30 | 70 | 100 |
+| 初赛 | 70 | 30 | 100 |
+| 决赛 | 30 | 70 | 100 |
 
-Attack distributions and difficulty may differ between phases to test generalization. The model order is randomized, the true class proportions are not disclosed to participants during evaluation, and the challenge contains no multi-target backdoors.
+不同阶段可能采用不同的攻击算法分布与任务难度，以考察参赛方法的泛化能力。模型顺序将被随机打乱，评测期间不会向参赛者公开真实类别比例。本赛事不包含多目标后门，每个后门模型仅对应一个隐藏目标特征。
 
 ---
 
-## Submission package
+## 提交文件
 
-Upload one ZIP archive with no extra enclosing directory:
+每次提交需上传一个压缩包，根目录不得包含额外的外层文件夹：
 
 ```text
 submission.zip
@@ -94,7 +94,7 @@ submission.zip
     `-- ...
 ```
 
-`predictions.json` must contain every official `model_id` exactly once:
+`predictions.json` 必须包含官方清单中的全部模型标识，且每个标识只能出现一次：
 
 ```json
 {
@@ -114,16 +114,16 @@ submission.zip
 }
 ```
 
-`label` must be the JSON integer `0` or `1`, not a Boolean, string, or floating-point value. When `label = 1`, `embedding_file` must be a valid relative path inside the archive. When `label = 0`, it must be `null`.
+`label` 必须是 JSON 整数 `0` 或 `1`，不能使用布尔值、字符串或浮点数。当 `label = 1` 时，`embedding_file` 必须是压缩包内部的合法相对路径；当 `label = 0` 时，该字段必须为 `null`。
 
 ---
 
-## Ranking and tie-breaking
+## 排名与并列处理
 
-Teams are ranked by Final Score. Ties are resolved in this order:
+排行榜首先按照最终成绩从高到低排序。若最终成绩相同，则依次比较：
 
-1. higher Target Feature Recovery Score;
-2. higher Detection Accuracy;
-3. earlier valid submission reaching that score.
+1. 目标特征反演得分；
+2. 后门模型检测准确率；
+3. 最早达到该成绩的有效提交时间。
 
-External public data, pretrained models, and generated data are allowed, subject to their licenses and the final platform rules. Training time, inference time, memory, compute, and model size do not directly enter the score.
+赛事允许使用公开外部数据、外部预训练模型和生成数据，但参赛者必须遵守相关许可证及竞赛平台最终规则。训练时间、推理时间、显存、算力和模型规模不直接计入最终成绩。

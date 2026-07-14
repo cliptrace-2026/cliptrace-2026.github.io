@@ -1,37 +1,37 @@
 ---
 layout: default
-title: Leaderboards
+title: 排行榜
 permalink: /leaderboards/
 ---
 
-## Leaderboards
+## 排行榜
 
-The CLIPTrace 2026 leaderboards will open with the competition platform. No official participant results have been released yet.
+后门模型检测与反演挑战赛排行榜将在竞赛平台开放后启用，目前尚未公布正式参赛成绩。
 
 <div class="status-card">
-  <span>STATUS</span>
-  <strong>Competition platform coming soon</strong>
-  <p>Development and final standings will be published here after the corresponding phases begin.</p>
+  <span>当前状态</span>
+  <strong>竞赛平台即将开放</strong>
+  <p>初赛和决赛开始后，本页面将同步展示相应阶段的排行榜。</p>
 </div>
 
 ---
 
-## Score columns
+## 成绩说明
 
-| Column | Meaning |
+| 指标 | 含义 |
 |:--|:--|
-| Detection Accuracy | Fraction of all phase checkpoints classified correctly |
-| Feature Recovery | Mean clamped cosine similarity over truly backdoored checkpoints |
-| Final Score | `100 x (0.30 x Detection + 0.70 x Recovery)` |
+| 检测准确率 | 该阶段全部模型中分类正确的比例 |
+| 特征反演得分 | 真实后门模型上的截断余弦相似度平均值 |
+| 最终成绩 | `100 ×（0.30 × 检测准确率 + 0.70 × 特征反演得分）` |
 
 ---
 
-## Tie-breaking
+## 并列处理
 
-Equal Final Scores are ordered by:
+最终成绩相同时，按照以下顺序确定排名：
 
-1. higher Feature Recovery Score;
-2. higher Detection Accuracy;
-3. earlier valid submission reaching the score.
+1. 目标特征反演得分更高者优先；
+2. 后门模型检测准确率更高者优先；
+3. 更早达到该成绩的有效提交优先。
 
-Leaderboard entries remain provisional until format checks and any requested reproducibility verification are complete.
+在格式检查和必要的复现验证完成前，排行榜成绩均为暂定结果。

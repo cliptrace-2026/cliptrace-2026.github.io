@@ -1,33 +1,33 @@
 ---
 layout: default
-title: Getting Started
+title: 参赛指南
 permalink: /startkit/
 ---
 
-## Starter kit
+## 官方起步工具包
 
-The CLIPTrace starter kit provides a reproducible reference pipeline for loading checkpoints, inspecting model behavior, running the baseline detector and target recovery method, and packaging a valid submission.
-
----
-
-## Repositories and data
-
-* **Code:** [github.com/cliptrace-2026/cliptrace-baseline](https://github.com/cliptrace-2026/cliptrace-baseline)
-* **Baseline data:** [huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
-* **Competition platform:** Codabench link coming soon
-
-The baseline repository contains environment instructions, a unified command-line interface, fixed random seeds, CPU smoke tests, GPU configurations, and submission utilities.
+官方起步工具包提供一套可复现的参考流程，用于加载模型检查点、分析模型行为、运行基线检测与反演方法，以及生成符合要求的提交文件。
 
 ---
 
-## Quick start
+## 代码与数据
 
-1. Clone the baseline repository.
-2. Create the documented Python environment and install the project.
-3. Download or link the development checkpoints when they are released.
-4. Run the detector and target feature recovery pipeline.
-5. Validate `predictions.json` and every submitted tensor.
-6. Package the files at the root of `submission.zip` and upload through Codabench.
+* **官方代码：** [后门检测与反演基线仓库](https://github.com/cliptrace-2026/cliptrace-baseline)
+* **基线数据：** [Hugging Face 数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
+* **竞赛平台：** 入口即将公布
+
+基线仓库包含环境配置说明、统一命令行接口、固定随机种子、中央处理器冒烟测试、图形处理器运行配置和提交文件生成工具。
+
+---
+
+## 快速开始
+
+1. 克隆官方基线仓库；
+2. 按照文档创建 Python 环境并安装项目；
+3. 在开发模型发布后下载模型检查点；
+4. 运行后门检测与目标特征反演流程；
+5. 检查 `predictions.json` 和全部特征文件；
+6. 在压缩包根目录正确组织文件，并上传至竞赛平台。
 
 ```bash
 git clone https://github.com/cliptrace-2026/cliptrace-baseline.git
@@ -38,22 +38,22 @@ cliptrace --help
 
 ---
 
-## Expected model input
+## 模型输入
 
-Each official checkpoint is a complete Hugging Face `CLIPModel` directory based on `openai/clip-vit-large-patch14-336`. Participants have full access to model weights and intermediate features. Image inputs use 336 x 336 resolution, and the projected representation has 768 dimensions.
+每个官方检查点均为完整的 Hugging Face `CLIPModel` 目录，基础模型为 `openai/clip-vit-large-patch14-336`。参赛者可以访问全部模型权重和中间特征。图像输入尺寸为 336 × 336，投影特征维度为 768。
 
 ---
 
-## Submission checklist
+## 提交前检查
 
-Before uploading, confirm that:
+上传前请确认：
 
-* all official model IDs appear exactly once;
-* labels are JSON integers `0` or `1`;
-* clean predictions use `"embedding_file": null`;
-* backdoor predictions reference an existing archive-relative `.pt` file;
-* each tensor is a finite CPU `float32` vector with shape `[768]`;
-* each tensor has unit L2 norm within `1e-4`;
-* the ZIP contains no extra enclosing directory.
+* 官方清单中的全部模型标识均出现且仅出现一次；
+* 分类标签为 JSON 整数 `0` 或 `1`；
+* 正常模型的 `embedding_file` 为 `null`；
+* 后门模型的 `embedding_file` 指向压缩包内真实存在的 `.pt` 文件；
+* 每个特征文件仅包含一个形状为 `[768]` 的有限值 `torch.float32` 张量；
+* 张量位于中央处理器设备上，L2 范数与 1 的差值不超过 `1e-4`；
+* 压缩包根目录不存在额外的外层文件夹。
 
-For the complete scoring contract, see the [Challenge](/challenge/) page. For invalid submission conditions, see [Terms & FAQs](/rules/).
+完整评分规则请参阅[赛题说明](/challenge/)，无效提交条件请参阅[规则与问答](/rules/)。
