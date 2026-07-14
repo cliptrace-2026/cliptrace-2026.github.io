@@ -146,7 +146,7 @@ body {
 
 /* ===== HERO SECTION ===== */
 .hero-section {
-    background: #0b2b54 url('/assets/competition-logo.png') no-repeat center 46%;
+    background: #0b2b54 url('/assets/competition-logo.png?v={{ site.github.build_revision }}') no-repeat center 46%;
     background-size: cover;
     background-attachment: scroll;
     padding: 92px 0 72px;
