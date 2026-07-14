@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CLIPTrace 2026：面向 CLIP ViT-L/14@336 的后门模型检测与目标特征恢复竞赛。">
+  <meta name="theme-color" content="#071528">
+  <meta property="og:title" content="CLIPTrace 2026">
+  <meta property="og:description" content="Backdoored Vision-Language Model Detection and Target Feature Recovery Challenge">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cliptrace-2026.github.io/">
+  <meta property="og:image" content="https://cliptrace-2026.github.io/assets/og-image.png">
+  <title>CLIPTrace 2026 | 视觉语言模型后门取证挑战</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至主要内容</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="CLIPTrace 2026 首页">
+      <img src="assets/cliptrace-logo.png" alt="" width="46" height="46">
+      <span><strong>CLIPTrace 2026</strong><small>MODEL FORENSICS CHALLENGE</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">菜单</button>
+    <nav id="primary-nav" aria-label="主导航">
+      <a href="#challenge">任务</a><a href="#evaluation">评测</a><a href="#submission">提交</a>
+      <a href="#resources">资源</a><a href="#organizers">组织者</a>
+    </nav>
+    <a class="header-action" href="https://github.com/cliptrace-2026/cliptrace-baseline">Baseline ↗</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-copy">
+        <p class="kicker">WHITE-BOX SECURITY · VISION-LANGUAGE MODELS · 2026</p>
+        <h1>从模型参数中，<br><em>追踪隐藏的语义后门。</em></h1>
+        <p class="lead">CLIPTrace 2026 聚焦视觉语言模型的后门检测与目标特征恢复。参赛者将在未知 Trigger、Target Prompt 与攻击配置的条件下，对随机打乱的 CLIP checkpoint 进行白盒取证。</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#challenge">阅读任务定义</a>
+          <a class="button" href="https://github.com/cliptrace-2026/cliptrace-baseline">获取 Baseline</a>
+        </div>
+        <dl class="facts">
+          <div><dt>MODEL</dt><dd>CLIP ViT-L/14@336</dd></div>
+          <div><dt>ACCESS</dt><dd>Full white-box</dd></div>
+          <div><dt>OUTPUT</dt><dd>768-D embedding</dd></div>
+          <div><dt>MODELS</dt><dd>100 / phase</dd></div>
+        </dl>
+      </div>
+      <div class="hero-mark" aria-hidden="true">
+        <img src="assets/cliptrace-logo.png" alt="" width="640" height="640">
+        <div class="scan-card"><span>FORENSIC TRACE</span><strong>PL₁ &lt; 0.10</strong><small>projection_dim = 768</small></div>
+      </div>
+    </section>
+
+    <aside class="award" aria-label="前三名奖励">
+      <span class="award-index">TOP 3</span>
+      <div><strong>前三名队伍将获邀参加中科院计算所 2026 年“计算未来”暑期研修班</strong><p>2026 年 8 月 16–19 日 · 北京</p></div>
+      <a href="https://ict.cas.cn/yjsjy/zsxx/sszs/202607/t20260702_8237097.html">查看官方通知 ↗</a>
+    </aside>
+
+    <section class="section" id="challenge">
+      <header class="section-heading"><p>01 / CHALLENGE</p><h2>两项相互耦合的取证任务</h2><span>每个模型均需提交检测标签；仅对预测为后门的模型提交恢复向量。</span></header>
+      <div class="task-grid">
+        <article class="task-card"><p class="card-label">TASK 01 · DETECTION</p><h3>后门模型检测</h3><p>为每个 checkpoint 提交离散二分类标签：<code>0</code> 表示 Clean，<code>1</code> 表示 Backdoored。不接收连续置信度。</p><footer><span>METRIC</span><strong>Accuracy</strong><b>30%</b></footer></article>
+        <article class="task-card accent"><p class="card-label">TASK 02 · RECOVERY</p><h3>目标特征恢复</h3><p>对预测为后门的模型，恢复一个形状为 <code>[768]</code> 的单位范数 <code>torch.float32</code> 语义向量。</p><footer><span>METRIC</span><strong>Clamped cosine similarity</strong><b>70%</b></footer></article>
+      </div>
+    </section>
+
+    <section class="section tinted" id="evaluation">
+      <header class="section-heading"><p>02 / EVALUATION</p><h2>固定规模与统一评分</h2><span>两个阶段均包含 100 个模型，类别比例不同；最终成绩由检测与恢复共同决定。</span></header>
+      <div class="formula"><span>FINAL SCORE</span><strong>100 × (0.30 × Accuracy + 0.70 × Recovery)</strong></div>
+      <div class="phase-table" role="table" aria-label="阶段模型数量">
+        <div class="table-head" role="row"><strong>PHASE</strong><span>CLEAN</span><span>BACKDOORED</span><span>TOTAL</span></div>
+        <div role="row"><strong>初赛 / Development</strong><span>70</span><span>30</span><span>100</span></div>
+        <div role="row"><strong>决赛 / Final</strong><span>30</span><span>70</span><span>100</span></div>
+      </div>
+      <div class="evaluation-notes">
+        <p><b>01</b><span>Recovery 仅在真实后门模型上计算，余弦相似度裁剪到 [0, 1]。</span></p>
+        <p><b>02</b><span>漏检后门模型时，该模型的恢复得分计为 0；误报向量不进入恢复均值。</span></p>
+        <p><b>03</b><span>提交必须覆盖阶段内全部且唯一的 model_id；结构性错误将得到 0 分及详细报告。</span></p>
+      </div>
+    </section>
+
+    <section class="section" id="submission">
+      <header class="section-heading"><p>03 / SUBMISSION</p><h2>严格、可验证的结果包</h2><span>ZIP 根目录不得额外嵌套文件夹。向量使用安全的 weights-only 方式加载。</span></header>
+      <div class="submission-grid">
+        <div class="file-tree"><p>submission.zip</p><p>├── predictions.json</p><p>└── embeddings/</p><p>&nbsp;&nbsp;&nbsp; ├── model_0001.pt</p><p>&nbsp;&nbsp;&nbsp; └── …</p><ul><li>[768]</li><li>float32</li><li>CPU</li><li>L2 norm = 1</li></ul></div>
+        <pre><code>{
+  "version": "1.0",
+  "predictions": [
+    {
+      "model_id": "model_0001",
+      "label": 1,
+      "embedding_file": "embeddings/model_0001.pt"
+    },
+    {
+      "model_id": "model_0002",
+      "label": 0,
+      "embedding_file": null
+    }
+  ]
+}</code></pre>
+      </div>
+    </section>
+
+    <section class="section tinted" id="resources">
+      <header class="section-heading"><p>04 / RESOURCES</p><h2>复现、数据与评测入口</h2><span>代码与数据独立发布；CodaBench 当前为隐藏合成草稿，正式开放日期待公布。</span></header>
+      <div class="resource-grid">
+        <a href="https://github.com/cliptrace-2026/cliptrace-baseline"><span>CODE</span><strong>Official Baseline</strong><p>Apache-2.0 独立实现、统一 CLI、固定随机种子、CPU smoke 与正式 GPU 配置。</p><b>GitHub ↗</b></a>
+        <a href="https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data"><span>DATA</span><strong>Baseline Data</strong><p>13,394 张 Imagenette 图像、train/val 划分、SHA-256 清单与来源说明。</p><b>Hugging Face ↗</b></a>
+        <div class="coming"><span>PLATFORM</span><strong>CodaBench</strong><p>合成 reference data 的全链路隐藏草稿正在验证，真实赛程与材料待替换。</p><b>COMING SOON</b></div>
+      </div>
+      <div class="rules-grid">
+        <article><b>Checkpoint</b><p>完整 Hugging Face CLIPModel 目录；图像输入 336×336，patch size 14。</p></article>
+        <article><b>Baseline rule</b><p>PL₁ = L1(mask)/(336×336×3)，当 PL₁ &lt; 0.10 时判为后门。</p></article>
+        <article><b>Runtime</b><p>正式显存、时限与提交频率将在 CodaBench 开放前公布。</p></article>
+        <article><b>Reproducibility</b><p>软件可复现不等同于保证排行榜分数；请保存环境、seed 与采样清单。</p></article>
+      </div>
+    </section>
+
+    <section class="section" id="organizers">
+      <header class="section-heading"><p>05 / ORGANIZERS</p><h2>组织者</h2><span>中国科学院计算技术研究所 · 智能信息处理重点实验室</span></header>
+      <div class="people">
+        <a href="https://robin-wzq.github.io/"><img src="assets/authors/zhongqi-wang.jpg" alt="王中琦" loading="lazy"><strong>王中琦</strong><span>Zhongqi Wang</span></a>
+        <a href="https://vipl.ict.ac.cn/people/jYang/"><img src="assets/authors/jing-yang.jpg" alt="杨竟" loading="lazy"><strong>杨竟</strong><span>Jing Yang</span></a>
+        <a href="https://jiezhang010.github.io/"><img src="assets/authors/jie-zhang.png" alt="张杰" loading="lazy"><strong>张杰</strong><span>Jie Zhang</span></a>
+        <a href="https://vipl.ict.ac.cn/people/sgshan/"><img src="assets/authors/shiguang-shan.jpg" alt="山世光" loading="lazy"><strong>山世光</strong><span>Shiguang Shan</span></a>
+        <a href="https://vipl.ict.ac.cn/people/xlchen/"><img src="assets/authors/xilin-chen.png" alt="陈熙霖" loading="lazy"><strong>陈熙霖</strong><span>Xilin Chen</span></a>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <header class="section-heading"><p>06 / FAQ</p><h2>快速问答</h2><span>赛程、模型访问方式和 CodaBench 地址将在正式发布后同步更新。</span></header>
+      <details><summary>Clean 模型需要提交 embedding 吗？</summary><p>不需要。当 <code>label = 0</code> 时，<code>embedding_file</code> 必须为 <code>null</code>。</p></details>
+      <details><summary>恢复向量的维度是多少？</summary><p>CLIP ViT-L/14@336 的投影维度为 768，提交形状必须严格为 <code>[768]</code>。</p></details>
+      <details><summary>是否包含多目标后门？</summary><p>不包含。每个后门模型仅对应一个隐藏目标 embedding。</p></details>
+      <details><summary>比赛何时开放？</summary><p>正式起止日期尚待审批。当前 CodaBench 仅部署非活动日期的隐藏合成草稿。</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="brand"><img src="assets/cliptrace-logo.png" alt="" width="42" height="42"><span><strong>CLIPTrace 2026</strong><small>MODEL FORENSICS CHALLENGE</small></span></div><p>赛程待公布 · CodaBench draft validation in progress</p><a href="#top">返回顶部 ↑</a></footer>
+  <script src="script.js"></script>
+</body>
+</html>

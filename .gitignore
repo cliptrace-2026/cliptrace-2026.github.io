@@ -1,3 +1,9 @@
+baseline/
+data/
+说明文档/
+*.docx
+_release/
+organizer/private/
 tmp/
 __pycache__/
 *.pyc

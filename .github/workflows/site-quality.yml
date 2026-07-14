@@ -1,0 +1,55 @@
+name: Website quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validate HTML and CSS
+        run: |
+          pip install html5validator==0.4.2
+          html5validator --root site --also-check-css
+      - name: Check external and internal links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --accept 200,206,429
+            --exclude '^https://github.com/cliptrace-2026/'
+            --exclude '^https://huggingface.co/datasets/cliptrace-2026/'
+            site/index.html
+          fail: true
+
+  screenshots:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install browser runtime
+        run: |
+          npm install --no-save playwright@1.54.1
+          npx playwright install --with-deps chromium
+      - name: Serve and inspect desktop/mobile layouts
+        run: |
+          python3 -m http.server 8000 --directory site > /tmp/cliptrace-site.log 2>&1 &
+          node qa/site-check.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: website-screenshots
+          path: artifacts/site-*.png
+          if-no-files-found: error
+          retention-days: 14

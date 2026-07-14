@@ -1,6 +1,0 @@
-const menuButton=document.querySelector(".menu-toggle");const nav=document.querySelector(".site-nav");
-menuButton?.addEventListener("click",()=>{const open=nav.classList.toggle("open");menuButton.setAttribute("aria-expanded",String(open));menuButton.setAttribute("aria-label",open?"关闭导航":"打开导航")});
-nav?.querySelectorAll("a").forEach(link=>link.addEventListener("click",()=>{nav.classList.remove("open");menuButton?.setAttribute("aria-expanded","false")}));
-document.querySelectorAll(".copy-button").forEach(button=>button.addEventListener("click",async()=>{const target=document.getElementById(button.dataset.copyTarget);if(!target)return;try{await navigator.clipboard.writeText(target.innerText);button.textContent="COPIED";setTimeout(()=>button.textContent="COPY",1400)}catch{button.textContent="FAILED"}}));
-const revealElements=document.querySelectorAll(".task-card,.panel,.rules-grid article,.phases article,.faq-list details");
-if("IntersectionObserver"in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("revealed");observer.unobserve(entry.target)}}),{threshold:.12});revealElements.forEach(element=>{element.classList.add("reveal");observer.observe(element)})}
