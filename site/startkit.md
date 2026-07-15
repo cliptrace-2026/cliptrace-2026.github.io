@@ -12,11 +12,11 @@ permalink: /startkit/
 
 ## 代码与数据
 
-* **官方代码：** [后门检测与反演基线仓库](https://github.com/cliptrace-2026/cliptrace-baseline)
+* **官方代码：** [CLIPTrace 2026 选手起步仓库](https://github.com/cliptrace-2026/cliptrace-challenge)
 * **基线数据：** [Hugging Face 数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
 * **竞赛平台：** 入口即将公布
 
-基线仓库包含环境配置说明、统一命令行接口、固定随机种子、中央处理器冒烟测试、图形处理器运行配置和提交文件生成工具。
+起步仓库包含资源下载脚本、DECREE-style 检测与特征反演 baseline、固定随机种子、提交目录模板，以及提交文件检查与打包工具。代码采用直接可修改的脚本结构，方便参赛者替换或扩展 baseline。
 
 ---
 
@@ -30,10 +30,12 @@ permalink: /startkit/
 6. 在压缩包根目录正确组织文件，并上传至竞赛平台。
 
 ```bash
-git clone https://github.com/cliptrace-2026/cliptrace-baseline.git
-cd cliptrace-baseline
-pip install -e ".[test]"
-cliptrace --help
+git clone https://github.com/cliptrace-2026/cliptrace-challenge.git
+cd cliptrace-challenge
+pip install -r requirements.txt
+python download_resources.py
+cd detection-recovery-track
+bash baseline_decree.sh
 ```
 
 ---

@@ -10,7 +10,7 @@ permalink: /
 
 <div class="quick-links" aria-label="赛事快捷入口">
   <a href="/challenge/"><strong>查看赛题说明</strong><span>任务定义、评分指标与提交格式</span></a>
-  <a href="https://github.com/cliptrace-2026/cliptrace-baseline"><strong>获取官方基线</strong><span>参考代码与可复现实验环境</span></a>
+  <a href="https://github.com/cliptrace-2026/cliptrace-challenge"><strong>获取选手工具包</strong><span>资源下载、官方 baseline 与提交脚本</span></a>
   <a href="/timeline/"><strong>查看重要日期</strong><span>竞赛阶段与时间安排</span></a>
 </div>
 
@@ -101,6 +101,6 @@ permalink: /
 
 ## 赛事资源
 
-* [官方基线代码](https://github.com/cliptrace-2026/cliptrace-baseline)
+* [选手起步仓库与官方 baseline](https://github.com/cliptrace-2026/cliptrace-challenge)
 * [基线数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
 * 竞赛平台入口：**即将公布**
