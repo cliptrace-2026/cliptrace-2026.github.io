@@ -105,4 +105,5 @@ permalink: /
 
 * [选手起步仓库与官方 baseline](https://github.com/cliptrace-2026/cliptrace-challenge)
 * [基线数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
-* 竞赛平台入口：**即将公布**
+* [模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)
+* [竞赛平台入口](https://www.codabench.org/competitions/17511/)
