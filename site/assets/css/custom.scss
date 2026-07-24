@@ -458,6 +458,10 @@ body {
     background: white !important;
 }
 
+.main-content .timeline-table th:last-child {
+    text-align: right !important;
+}
+
 .main-content .timeline-table td {
     display: table-cell !important;
     padding: 1rem 0 !important;
@@ -963,3 +967,4 @@ body {
         transition-duration: 0.01ms !important;
     }
 }
+
