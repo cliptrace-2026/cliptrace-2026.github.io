@@ -14,7 +14,8 @@ permalink: /startkit/
 
 * **官方代码：** [CLIPTrace 2026 选手起步仓库](https://github.com/cliptrace-2026/cliptrace-challenge)
 * **基线数据：** [Hugging Face 数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
-* **竞赛平台：** 入口即将公布
+* **比赛模型：** [Hugging Face 比赛模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)
+* **竞赛平台：** [Codabench 竞赛页面](https://www.codabench.org/competitions/17511/)
 
 起步仓库包含资源下载脚本、DECREE-style 检测与特征反演 baseline、固定随机种子、提交目录模板，以及提交文件检查与打包工具。代码采用直接可修改的脚本结构，方便参赛者替换或扩展 baseline。
 
@@ -24,10 +25,10 @@ permalink: /startkit/
 
 1. 克隆官方基线仓库；
 2. 按照文档创建 Python 环境并安装项目；
-3. 在开发模型发布后下载模型检查点；
+3. 算法开发阶段开始后，从 [Hugging Face 比赛模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)获取模型检查点；
 4. 运行后门检测与目标特征反演流程；
 5. 检查 `predictions.json` 和全部特征文件；
-6. 在压缩包根目录正确组织文件，并上传至竞赛平台。
+6. 在压缩包根目录正确组织文件，并上传至 [Codabench 竞赛平台](https://www.codabench.org/competitions/17511/)。
 
 ```bash
 git clone https://github.com/cliptrace-2026/cliptrace-challenge.git
@@ -59,3 +60,4 @@ bash baseline_decree.sh
 * 压缩包根目录不存在额外的外层文件夹。
 
 完整评分规则请参阅[赛题说明](/challenge/)，无效提交条件请参阅[规则与问答](/rules/)。
+
