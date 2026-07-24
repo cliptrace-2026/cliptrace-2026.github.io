@@ -9,8 +9,8 @@ permalink: /
 参赛者将获得一组顺序随机打乱的 CLIP 模型检查点，并拥有完整的白盒访问权限。在不提供训练数据、触发器、目标提示词和攻击配置的条件下，参赛队伍需要判断每个模型是否包含后门，并为检测出的后门模型恢复对应的目标特征向量。
 
 <div class="quick-links" aria-label="赛事快捷入口">
-  <a href="/challenge/"><strong>查看赛题说明</strong><span>任务定义、评分指标与提交格式</span></a>
-  <a href="https://github.com/cliptrace-2026/cliptrace-challenge"><strong>获取选手工具包</strong><span>资源下载、官方 baseline 与提交脚本</span></a>
+  <a href="https://www.codabench.org/competitions/17511/"><strong>进入竞赛平台</strong><span>报名、提交与官方成绩</span></a>
+  <a href="https://huggingface.co/RobinWZQ/cliptrace-2026-models"><strong>下载比赛模型</strong><span>官方 CLIP 模型检查点</span></a>
   <a href="/timeline/"><strong>查看重要日期</strong><span>竞赛阶段与时间安排</span></a>
 </div>
 
@@ -18,8 +18,8 @@ permalink: /
 
 ## 最新消息
 
-* **2026 年 7 月 14 日：** 赛事网站与官方基线正在进行公开发布前的最后准备。
-* 报名方式、正式赛程和竞赛平台入口将在审批完成后公布。
+* **正式赛程：** 2026 年 7 月 28 日至 8 月 6 日进行算法开发，8 月 7 日至 8 月 8 日由赛事方复核代码，8 月 8 日公布结果。
+* **官方入口：** [Codabench 竞赛平台](https://www.codabench.org/competitions/17511/)与 [Hugging Face 比赛模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)现已公布。
 
 ---
 
@@ -47,20 +47,26 @@ permalink: /
 
 每个阶段包含 100 个顺序随机打乱的模型，其中后门模型数量未知。每个后门模型仅对应一个隐藏目标特征，不包含多目标后门情形。
 
-2026.07.28 - 2026.08.06 算法开发
+<table class="timeline-table">
+  <thead><tr><th>阶段</th><th>日期</th></tr></thead>
+  <tbody>
+    <tr><td>算法开发</td><td>2026 年 7 月 28 日—8 月 6 日</td></tr>
+    <tr><td>赛事方代码复核</td><td>2026 年 8 月 7 日—8 月 8 日</td></tr>
+    <tr><td>结果公布</td><td>2026 年 8 月 8 日</td></tr>
+  </tbody>
+</table>
 
-2026.08.07-2026.08.08 赛事方代码复核
-
-2026.08.08 公布结果
+详细安排请参阅[重要日期](/timeline/)页面，报名与提交以 [Codabench 竞赛平台](https://www.codabench.org/competitions/17511/)公告为准。
 
 ---
 
 ## 赛事奖励
 
 本次挑战赛拟设置以下奖项：
-- 一等奖：3 项，颁发证书及奖金（具体金额待定）
-- 二等奖：6 项，颁发证书及奖金（具体金额待定）
-- 三等奖：若干项，颁发证书
+
+* 一等奖：3 项，颁发证书及奖金（具体金额待定）；
+* 二等奖：6 项，颁发证书及奖金（具体金额待定）；
+* 三等奖：若干项，颁发证书。
 
 线上参赛，线下领奖。优秀参赛团队将有机会受邀参加 8 月 15 日的暑期学校，并获得奖金和奖励证书。
 
@@ -112,5 +118,6 @@ permalink: /
 
 * [选手起步仓库与官方 baseline](https://github.com/cliptrace-2026/cliptrace-challenge)
 * [基线数据集](https://huggingface.co/datasets/cliptrace-2026/cliptrace-baseline-data)
-* [模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)
-* [竞赛平台入口](https://www.codabench.org/competitions/17511/)
+* [比赛模型集](https://huggingface.co/RobinWZQ/cliptrace-2026-models)
+* [Codabench 竞赛平台](https://www.codabench.org/competitions/17511/)
+
